@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  dockerImage: 'netzding/rspamd'
+  dockerTag: 'latest'
 steps:
 - task: Docker@2
   displayName: Login to DockerHub
@@ -20,8 +23,8 @@ steps:
   displayName: Build and Push
   inputs:
     command: buildAndPush
-    repository: netzding/clamav
-    tags: latest
+    repository: $(dockerImage)
+    tags: $(dockerTag)
 
 - task: Docker@2
   displayName: Logout of DockerHub
